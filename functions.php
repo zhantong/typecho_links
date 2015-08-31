@@ -1,3 +1,5 @@
+<?php
+
 function PageToLinks($slug = 'links')
 {
     $db = Typecho_Db::get();
@@ -11,7 +13,9 @@ function PageToLinks($slug = 'links')
     $titles = $db->fetchObject($db->select('title')->from('table.contents')
     ->where('slug = ?', $slug)->limit(1));
     $title=$titles->title;
-
+    if(substr($text, -1)!=" "){
+        $text=$text." ";
+    }
     preg_match_all("/\[(.*?)\]\[(\d)\]/", $text,$r);
     echo "<h3 class='widget-title'>".$title."</h3>";
     echo "<ul class='widget-list'>";
@@ -23,3 +27,5 @@ function PageToLinks($slug = 'links')
     }
     echo "</ul>";
 }
+
+?>
